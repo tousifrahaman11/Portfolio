@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+body { background: #05070d; color: #dfe4f1; font-family: 'Inter Tight', system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+::selection { background: rgba(99,130,255,.35); }
+:focus-visible { outline: 2px solid #8aa2ff; outline-offset: 3px; border-radius: 8px; }
+
+.glass { background: rgba(14,20,38,.55); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,.08); }
+.surface { background: linear-gradient(180deg, rgba(18,26,48,.7), rgba(10,14,26,.7)); border: 1px solid rgba(255,255,255,.07); }
+.text-grad { background: linear-gradient(110deg, #ffffff 10%, #aab9ff 45%, #b79cff 80%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.text-grad-accent { background: linear-gradient(100deg, #7f9bff, #a98bff 55%, #4fd1e8); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+.spot { position: relative; overflow: hidden; }
+.spot::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .35s;
+  background: radial-gradient(420px circle at var(--x, 50%) var(--y, 50%), rgba(110,140,255,.15), transparent 60%); }
+.spot:hover::before { opacity: 1; }
+
+.grid-bg { position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background-image: linear-gradient(rgba(130,150,255,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(130,150,255,.07) 1px, transparent 1px);
+  background-size: 56px 56px; animation: drift 40s linear infinite;
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 20%, transparent 75%); mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 20%, transparent 75%); }
+@keyframes drift { to { background-position: 56px 56px; } }
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+@keyframes blink { 50% { opacity: 0; } }
+@keyframes ping-soft { 0% { transform: scale(1); opacity: .7; } 100% { transform: scale(2.6); opacity: 0; } }
+@keyframes scrollcue { 0% { transform: translateY(0); opacity: 0; } 30% { opacity: 1; } 100% { transform: translateY(12px); opacity: 0; } }
+.float { animation: float 7s ease-in-out infinite; }
+.caret { animation: blink 1s steps(2) infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
+}
